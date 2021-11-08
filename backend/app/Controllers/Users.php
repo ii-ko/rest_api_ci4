@@ -36,10 +36,10 @@ class Users extends ResourceController{
     public function update($id = null){
         $data = $this->request->getRawInput();
         $data['id'] = $id;
-        $validate = $this->validation->run($data, 'update');
+        $validate = $this->validation->run($data, 'update_user');
         $errors = $this->validation->getErrors();
 
-        if($this->model->findById($id)){
+        if(!$this->model->findById($id)){
             return $this->fail('id tidak ditemukan');
         }
         if($errors){
@@ -53,5 +53,26 @@ class Users extends ResourceController{
         if($this->model->save($user)){
             return $this->respondUpdated($user, 'user updated');
         }
+    }
+
+    public function delete($id = null){
+        if(!$this->model->findById($id)){
+            return $this->fail('id tidak ditemukan');
+        }
+
+        if($this->model->delete($id)){
+            return $this->respondDeleted(['id'=>$id]);
+        }
+    }
+
+    public function showById($id = null){
+        $data = $this->model->findById($id);
+
+        if($data){
+            return $this->respond($data);
+        }
+
+        return $this->fail('data tidak ditemukan');
+
     }
 }

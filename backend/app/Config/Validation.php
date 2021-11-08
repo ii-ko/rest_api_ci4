@@ -48,10 +48,10 @@ class Validation
         'password'=>['rules'=>'required']
     ];
 
-    public $update = [
+    public $update_user = [
         'username'=> [
-            'rules'=> 'min_length[5]|is_unique[users.username,id,{id}]',
+            'rules'=> 'required|min_length[5]|is_unique[users.username,id,{id}]',
         ],
-        'email'=>['rules'=> 'is_unique[users.email]'],
+        'email'=>['rules'=> 'required|is_unique[users.email]'],
     ];
 }

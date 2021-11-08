@@ -17,7 +17,7 @@ class UsersModel extends Model{
         $data = $this->find($id);
 
         if($data){
-            return True;
+            return $data;
         }else {
             return False;
         }
