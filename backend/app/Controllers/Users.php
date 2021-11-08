@@ -20,7 +20,7 @@ class Users extends ResourceController{
         $errors = $this->validation->getErrors();
 
         if($errors){
-            return $this->fail->errors();
+            return $this->fail($errors);
         }
 
         $user = new \App\Entities\Users();
@@ -30,6 +30,28 @@ class Users extends ResourceController{
 
         if($this->model->save($user)){
             return $this->respondCreated($user, 'user created');
+        }
+    }
+
+    public function update($id = null){
+        $data = $this->request->getRawInput();
+        $data['id'] = $id;
+        $validate = $this->validation->run($data, 'update');
+        $errors = $this->validation->getErrors();
+
+        if($this->model->findById($id)){
+            return $this->fail('id tidak ditemukan');
+        }
+        if($errors){
+            return $this->fail($errors);
+        }
+
+        $user = new \App\Entities\Users();
+        $user->fill($data);
+        $user->update_date = date("Y-m-d H:i:s");
+
+        if($this->model->save($user)){
+            return $this->respondUpdated($user, 'user updated');
         }
     }
 }

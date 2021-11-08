@@ -47,4 +47,11 @@ class Validation
         'email'=>['rules'=> 'required|is_unique[users.email]'],
         'password'=>['rules'=>'required']
     ];
+
+    public $update = [
+        'username'=> [
+            'rules'=> 'min_length[5]|is_unique[users.username,id,{id}]',
+        ],
+        'email'=>['rules'=> 'is_unique[users.email]'],
+    ];
 }

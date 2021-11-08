@@ -12,4 +12,14 @@ class UsersModel extends Model{
 
     protected $returnType = 'App\Entities\Users';
     protected $useTimestamps = false;
+
+    public function findById($id){
+        $data = $this->find($id);
+
+        if($data){
+            return True;
+        }else {
+            return False;
+        }
+    }
 }
