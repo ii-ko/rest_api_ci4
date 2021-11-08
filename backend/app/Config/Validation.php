@@ -40,4 +40,11 @@ class Validation
     //--------------------------------------------------------------------
     // Rules
     //--------------------------------------------------------------------
+    public $register = [
+        'username'=> [
+            'rules'=> 'required|min_length[5]|is_unique[users.username]',
+        ],
+        'email'=>['rules'=> 'required|is_unique[users.email]'],
+        'password'=>['rules'=>'required']
+    ];
 }
