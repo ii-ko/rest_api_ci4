@@ -65,14 +65,12 @@ class Users extends ResourceController{
         }
     }
 
-    public function showById($id = null){
+    public function show($id = null){
         $data = $this->model->findById($id);
 
         if($data){
             return $this->respond($data);
         }
-
         return $this->fail('data tidak ditemukan');
-
     }
 }
